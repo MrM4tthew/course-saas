@@ -76,7 +76,9 @@ export const getStaticProps = async () => {
     `http://wordpressrestapi.local/wp-json/wp/v2/posts?_embed`,
     {
       headers: {
-        Authorization: "Basic " + process.env.BASIC_AUTH_WORDPRESS_BLOG,
+        // Authorization: "Basic " + process.env.BASIC_AUTH_WORDPRESS_BLOG,
+        Authorization:
+          "Basic " + "dXNlcjM6VnFnRiBvc21XIFlFaVYgeTdPViBHaVVPIFZYc00=",
       },
     }
   );
