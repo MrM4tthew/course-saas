@@ -46,9 +46,9 @@ export const getServerSideProps = async (ctx) => {
     `http://wordpressrestapi.local/wp-json/wp/v2/posts?_embed&slug=${slug}`,
     {
       headers: {
-        Authorization: "Basic " + process.env.BASIC_AUTH_WORDPRESS_BLOG,
-        // Authorization:
-        //   "Basic " + "dXNlcjM6VnFnRiBvc21XIFlFaVYgeTdPViBHaVVPIFZYc00=",
+        // Authorization: "Basic " + process.env.BASIC_AUTH_WORDPRESS_BLOG,
+        Authorization:
+          "Basic " + "dXNlcjM6VnFnRiBvc21XIFlFaVYgeTdPViBHaVVPIFZYc00=",
       },
     }
   );
