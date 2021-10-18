@@ -71,12 +71,14 @@ export default function Home({ courses, blogs }) {
   );
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const response = await fetch(
     `http://wordpressrestapi.local/wp-json/wp/v2/posts?_embed`,
     {
       headers: {
-        Authorization: "Basic " + process.env.BASIC_AUTH_WORDPRESS_BLOG,
+        // Authorization: "Basic " + process.env.BASIC_AUTH_WORDPRESS_BLOG,
+        Authorization:
+          "Basic " + "dXNlcjM6VnFnRiBvc21XIFlFaVYgeTdPViBHaVVPIFZYc00=",
       },
     }
   );
