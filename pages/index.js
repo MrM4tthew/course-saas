@@ -31,7 +31,7 @@ export default function Home({ courses, blogs }) {
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
-  console.log(blogs);
+  // console.log(blogs);
 
   // return (
   //   <div className={styles.container}>
@@ -56,7 +56,7 @@ export default function Home({ courses, blogs }) {
     <Layout user={user}>
       <Container>
         <ContainerBox>
-          {user ? (
+          {/* {user ? (
             <div className="blogCards">
               {blogs.map((blog, key) => (
                 <Blogcard key={key} blog={blog} />
@@ -64,32 +64,32 @@ export default function Home({ courses, blogs }) {
             </div>
           ) : (
             ""
-          )}
+          )} */}
         </ContainerBox>
       </Container>
     </Layout>
   );
 }
 
-export const getStaticProps = async () => {
-  const response = await fetch(
-    `http://wordpressrestapi.local/wp-json/wp/v2/posts?_embed`,
-    {
-      headers: {
-        // Authorization: "Basic " + process.env.BASIC_AUTH_WORDPRESS_BLOG,
-        Authorization:
-          "Basic " + "dXNlcjM6VnFnRiBvc21XIFlFaVYgeTdPViBHaVVPIFZYc00=",
-      },
-    }
-  );
-  // const data = await getCourses();
+// export const getStaticProps = async () => {
+//   const response = await fetch(
+//     `http://wordpressrestapi.local/wp-json/wp/v2/posts?_embed`,
+//     {
+//       headers: {
+//         // Authorization: "Basic " + process.env.BASIC_AUTH_WORDPRESS_BLOG,
+//         Authorization:
+//           "Basic " + "dXNlcjM6VnFnRiBvc21XIFlFaVYgeTdPViBHaVVPIFZYc00=",
+//       },
+//     }
+//   );
+//   // const data = await getCourses();
 
-  const blogs = await response.json();
+//   const blogs = await response.json();
 
-  return {
-    props: {
-      // courses: JSON.parse(JSON.stringify(data)), // this will be passed to our Component as a prop
-      blogs: blogs,
-    },
-  };
-};
+//   return {
+//     props: {
+//       // courses: JSON.parse(JSON.stringify(data)), // this will be passed to our Component as a prop
+//       blogs: blogs,
+//     },
+//   };
+// };
