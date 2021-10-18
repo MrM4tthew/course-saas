@@ -2,14 +2,36 @@ import { useUser } from "@auth0/nextjs-auth0";
 import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import { getCourses } from "../utils/db";
+// import { getCourses } from "../utils/db";
+import Header from "../components/Layout/Header";
+import Layout from "../components/Layout";
+import Blogcard from "../components/uicomponents/Blogcard";
+import styled from "styled-components";
+import { MaxWidth } from "../styles/globalStyle";
 
-export default function Home({ courses }) {
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 80px 0px;
+`;
+
+const ContainerBox = styled(MaxWidth)`
+  display: flex;
+  .blogCards {
+    width: 100%;
+    display: grid;
+    column-gap: 30px;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+`;
+
+export default function Home({ courses, blogs }) {
   const { user, error, isLoading } = useUser();
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
+
+  console.log(blogs);
 
   // return (
   //   <div className={styles.container}>
@@ -30,22 +52,42 @@ export default function Home({ courses }) {
   //   </div>
   // );
 
-  if (user) {
-    return (
-      <div>
-        Welcome {user.name}! <a href="/api/auth/logout">Logout</a>
-      </div>
-    );
-  }
-  return <a href="/api/auth/login">Login</a>;
+  return (
+    <Layout user={user}>
+      <Container>
+        <ContainerBox>
+          {user ? (
+            <div className="blogCards">
+              {blogs.map((blog, key) => (
+                <Blogcard key={key} blog={blog} />
+              ))}
+            </div>
+          ) : (
+            ""
+          )}
+        </ContainerBox>
+      </Container>
+    </Layout>
+  );
 }
 
 export const getStaticProps = async () => {
-  const data = await getCourses();
+  const response = await fetch(
+    `http://wordpressrestapi.local/wp-json/wp/v2/posts?_embed`,
+    {
+      headers: {
+        Authorization: "Basic " + process.env.BASIC_AUTH_WORDPRESS_BLOG,
+      },
+    }
+  );
+  // const data = await getCourses();
+
+  const blogs = await response.json();
 
   return {
     props: {
-      courses: JSON.parse(JSON.stringify(data)), // this will be passed to our Component as a prop
+      // courses: JSON.parse(JSON.stringify(data)), // this will be passed to our Component as a prop
+      blogs: blogs,
     },
   };
 };
